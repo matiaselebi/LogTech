@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Correo de LogTech (facturas, avisos y recuperación de contraseña).
+     1. Copiá este archivo con el nombre Web.Mail.config, en esta misma carpeta (está en .gitignore: no se sube).
+     2. Completá TU cuenta de Gmail y su contraseña de aplicación (16 letras, se crea en
+        Cuenta de Google > Seguridad > Verificación en dos pasos > Contraseñas de aplicaciones).
+     Sin este archivo los mails no salen: se guardan como archivos .eml en App_Data\Mails. -->
+<appSettings>
+  <add key="CorreoSmtpHost" value="smtp.gmail.com" />
+  <add key="CorreoSmtpPuerto" value="587" />
+  <add key="CorreoSmtpUsuario" value="tu-cuenta@gmail.com" />
+  <add key="CorreoSmtpClave" value="contraseña-de-aplicación" />
+  <add key="CorreoRemitente" value="tu-cuenta@gmail.com" />
+</appSettings>

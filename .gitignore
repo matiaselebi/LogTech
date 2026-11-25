@@ -1,0 +1,16 @@
+# Secretos - nunca subir
+LogTech/Web.Mail.config
+
+# Visual Studio / build
+.vs/
+**/bin/
+**/obj/
+packages/
+*.user
+
+# Datos que genera la aplicación al usarse
+LogTech/App_Data/Archivos/
+LogTech/App_Data/Backups/
+LogTech/App_Data/Mails/
+LogTech/App_Data/BitacoraHistorica.xml
+*.bak

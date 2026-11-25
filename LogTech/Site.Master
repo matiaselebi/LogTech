@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LogTech.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="<%= LogTech.Servicios.IdiomaServicio.IdiomaActual %>" data-traducciones-url="<%= ResolveUrl("~/Traducciones.aspx/Obtener") %>">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> | LogTech</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server" novalidate="novalidate">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top app-navbar" aria-label="Navegación principal">
+            <div class="container">
+                <%-- Sin sesión lleva a la landing; con sesión, al inicio del panel. --%>
+                <a id="lnkMarca" class="navbar-brand brand-lockup" runat="server" href="~/" aria-label="LogTech, inicio">
+                    <span class="brand-mark brand-logo-mark" aria-hidden="true"></span>
+                    <span>Log<span>Tech</span></span>
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav align-items-lg-center gap-lg-2">
+                        <%-- Con sesión, estos enlaces pasan al pie de página. --%>
+                        <asp:PlaceHolder ID="phEnlacesArriba" runat="server">
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/ComoFunciona.aspx">Cómo funciona</a></li>
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/QuienesSomos.aspx">Quiénes somos</a></li>
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/Soluciones.aspx">Soluciones</a></li>
+                            <li class="nav-item"><a class="nav-link" runat="server" href="~/GestionFlota.aspx">Gestión de flota</a></li>
+                        </asp:PlaceHolder>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-login dropdown-toggle no-translate" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><asp:Literal ID="litCambiarIdioma" runat="server" /></a>
+                            <ul class="dropdown-menu dropdown-menu-end language-menu">
+                                <li><asp:LinkButton ID="btnEspanol" runat="server" CommandArgument="es-ES" CssClass="dropdown-item no-translate" CausesValidation="false" OnCommand="btnIdioma_Command" /></li>
+                                <li><asp:LinkButton ID="btnIngles" runat="server" CommandArgument="en-GB" CssClass="dropdown-item no-translate" CausesValidation="false" OnCommand="btnIdioma_Command" /></li>
+                                <li><asp:LinkButton ID="btnPortugues" runat="server" CommandArgument="pt-PT" CssClass="dropdown-item no-translate" CausesValidation="false" OnCommand="btnIdioma_Command" /></li>
+                            </ul>
+                        </li>
+                        <%-- El transportista y la flota que todavía no contrataron su suscripción, y el dador (pasa a flota). --%>
+                        <li class="nav-item"><asp:HyperLink ID="lnkSuscripcion" runat="server" CssClass="btn btn-sm nav-suscripcion" Text="Suscripción" NavigateUrl="~/Panel.aspx?seccion=Suscripcion" Visible="false" /></li>
+                        <li class="nav-item"><asp:HyperLink ID="lnkCuenta" runat="server" CssClass="btn btn-brand btn-sm nav-cta" /></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="body-content">
+            <asp:Label ID="lblAvisoIdioma" runat="server" CssClass="aviso-idioma no-translate" role="status" />
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <footer class="site-footer">
+                <div class="container footer-inner">
+                    <div>
+                        <a id="lnkMarcaPie" class="brand-lockup footer-brand" runat="server" href="~/"><span class="brand-mark brand-logo-mark" aria-hidden="true"></span><span>Log<span>Tech</span></span></a>
+                        <p>La red digital que mueve tu negocio.</p>
+                    </div>
+                    <asp:PlaceHolder ID="phEnlacesPie" runat="server" Visible="false">
+                        <nav class="footer-links" aria-label="Más sobre LogTech">
+                            <a runat="server" href="~/ComoFunciona.aspx">Cómo funciona</a>
+                            <a runat="server" href="~/QuienesSomos.aspx">Quiénes somos</a>
+                            <a runat="server" href="~/Soluciones.aspx">Soluciones</a>
+                            <a runat="server" href="~/GestionFlota.aspx">Gestión de flota</a>
+                        </nav>
+                    </asp:PlaceHolder>
+                    <p class="footer-copy">&copy; <%: DateTime.Now.Year %> LogTech · Proyecto final de Ingeniería</p>
+                </div>
+            </footer>
+        </div>
+    </form>
+    <script src="<%= ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Scripts/validacion.js") %>"></script>
+</body>
+</html>
